@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="userAction"
+            type="org.devmaster.android.sample.flavorfakedata.weather.WeatherContract.UserActionListener" />
+        <variable
+            name="resp"
+            type="org.devmaster.android.sample.flavorfakedata.model.Resp" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context="org.devmaster.android.sample.flavorfakedata.weather.WeatherActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@id/textView"
+            android:hint="Bauru, BR"
+            android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:layout_below="@id/textView"
+            android:layout_toEndOf="@id/editText"
+            android:onClick="@{() -> userAction.searchWeatherForLocation(editText.getText().toString())}"
+            android:layout_toRightOf="@id/editText" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="Weather"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/editText"
+            android:visibility="@{resp != null ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_editor_absoluteY="132dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_below="@id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Dizzle\nlight intensity drizzle"
+            android:visibility="@{resp != null ? View.VISIBLE : View.INVISIBLE}"
+            android:text="@{resp.weather[0].main + `\n` + resp.weather[0].description}"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+    </RelativeLayout>
+
+</layout>
+
